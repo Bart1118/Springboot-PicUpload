@@ -1,4 +1,4 @@
-package com.springboot.imgupload;
+package com.springboot.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,14 +21,20 @@ import java.util.Date;
  */
 @Controller
 @Slf4j
-public class ImageTest {
+public class PictureService {
 
     private static String UPLOAD_PATH = "File/image/upload";
 
     //上传图片
-    @RequestMapping(value = "/pics", method = RequestMethod.POST)
+    //外部接口
+    /**
+     * 上传图片至服务器
+     * @param image
+     * @return
+     */
+    @PostMapping("/pics")
     @ResponseBody
-    public String uploadImage(MultipartFile image) {
+    public String uploadImage(@RequestParam("image") MultipartFile image) {
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss_");//设置日期格式
             String name = df.format(new Date())+image.getOriginalFilename();
